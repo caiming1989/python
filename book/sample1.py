@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
-def list_solution(this_list,level=0):
+def list_solution(this_list,indent=False,level=0):
     for element in this_list:
         if isinstance(element,list):
-             list_solution(element,level+1)
+             list_solution(element,indent,level+1)
         else:
             for num in range(level):
-                print '\t',
+                if indent:
+                    print '\t',
             print element
 
 
