@@ -6,6 +6,6 @@ def list_solution(this_list,level):
         else:
             for num in range(level):
                 print '\t',
-            print element,
+            print element
 
 
