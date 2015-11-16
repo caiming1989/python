@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-def list_solution(this_list,level):
+def list_solution(this_list,level=0):
     for element in this_list:
         if isinstance(element,list):
              list_solution(element,level+1)
