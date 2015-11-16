@@ -1,0 +1,127 @@
+ADD DEVIP: CN=0, SRN=0, SN=7, SBT=BASE_BOARD, PT=ETH, PN=0, IP="10.69.237.100", MASK="255.255.255.248";
+ADD SCTPLNK: SCTPNO=0, SN=7, LOCIP="10.69.237.100", LOCPORT=9001, PEERIP="10.68.146.180", PEERPORT=58080, AUTOSWITCH=ENABLE;
+ADD SCTPLNK: SCTPNO=1, SN=7, LOCIP="10.69.237.100", LOCPORT=9002, PEERIP="10.68.146.180", PEERPORT=58080, AUTOSWITCH=ENABLE;
+
+ADD IPPATH: PATHID=0, SN=7, SBT=BASE_BOARD, PT=ETH, JNRSCGRP=DISABLE, LOCALIP="10.69.237.100", PEERIP="10.68.146.180", PATHTYPE=FIXED, DSCP=0, IPMUXSWITCH=DISABLE;
+ADD IPPATH: PATHID=1, SN=7, SBT=BASE_BOARD, PT=ETH, JNRSCGRP=DISABLE, LOCALIP="10.69.237.100", PEERIP="10.68.146.180", PATHTYPE=FIXED, DSCP=10, IPMUXSWITCH=DISABLE;
+ADD IPPATH: PATHID=2, SN=7, SBT=BASE_BOARD, PT=ETH, JNRSCGRP=DISABLE, LOCALIP="10.69.237.100", PEERIP="10.68.146.180", PATHTYPE=FIXED, DSCP=20, IPMUXSWITCH=DISABLE;
+ADD IPPATH: PATHID=3, SN=7, SBT=BASE_BOARD, PT=ETH, JNRSCGRP=DISABLE, LOCALIP="10.69.237.100", PEERIP="10.68.146.180", PATHTYPE=FIXED, DSCP=30, IPMUXSWITCH=DISABLE;
+
+ADD IPRT: RTIDX=0, SN=7, SBT=BASE_BOARD, DSTIP="10.68.146.180", DSTMASK="255.255.255.255", RTTYPE=NEXTHOP, NEXTHOP="10.69.237.102";
+
+ADD CPBEARER: CPBEARID=0, BEARTYPE=SCTP, FLAG=MASTER;
+ADD CPBEARER: CPBEARID=1, BEARTYPE=SCTP, LINKNO=1, FLAG=MASTER;
+
+ADD IUBCP: CPPT=NCP, CPBN=0;
+ADD IUBCP: CPPT=CCP, CPBN=1;
+
+
+ADD BRD: SN=2, BT=UBBP;
+ADD BRD: SN=3, BT=UBBP;
+ADD BRD: SN=16, BT=FAN;
+ADD BRD: SN=19, BT=UPEU;
+ADD GPS: SRN=0, SN=7;
+SET CLKMODE: MODE=AUTO;
+
+ADD RRUCHAIN: RCN=0, TT=LOADBALANCE, AT=LOCALPORT, HSN=2, HPN=0, TSN=3, TPN=0, CR=6.1;
+MOD RRUCHAIN: RCN=0, BRKPOS1=0, BRKPOS2=0;
+ADD RRU: CN=0, SRN=60, SN=0, TP=TRUNK, RCN=0, PS=0, RT=TRRU, RS=TDS, RXNUM=8, TXNUM=8;
+RMV RRU: CN=0, SRN=60, SN=0;
+RMV RRUCHAIN: RCN=0;
+MOD NODEB: BTSMODE=DUALMODE;
+MOD BBP: CN=0, SRN=0, SN=2, WM=TDD_CONVERGE;
+MOD BBP: CN=0, SRN=0, SN=3, WM=TDD_CONVERGE;
+ADD RRUCHAIN: RCN=0, TT=LOADBALANCE, AT=LOCALPORT, HSN=2, HPN=0, TSN=3, TPN=0, CR=6.1;
+MOD RRUCHAIN: RCN=0, BRKPOS1=0, BRKPOS2=0;
+ADD RRU: CN=0, SRN=60, SN=0, TP=TRUNK, RCN=0, PS=0, RT=MRRU, RS=TL, RXNUM=8, TXNUM=8;
+MOD RRUCHAIN: RCN=0, BRKPOS1=255, BRKPOS2=255;
+MOD TDNODEB: CPRICOMPRESSION=NORMAL_COMPRESSION;
+
+SND MTPCLEVEL: BRDTYP=MPT, TS=TL, TL0=11, TL1=32, TL2=0, TL3=0, TL4=0, TL5=0, TL6=0, TL7=0, TL8=0, TL9=0, TL10=0, TL11=0, TL12=0, TL13=0, TL14=0, TL15=0, TL16=0;
+DSP TDLCN:;
+
+ADD BFANT: DEVICENO=0, ANTVEND=Andrew, ANTTYP=circularAntenna, ANTORI=0, RELRRUSRN=60;
+ADD SECTOR: SECTORID=0, ANTNUM=8, ANT1CN=0, ANT1SRN=60, ANT1SN=0, ANT1N=R0A, ANT2CN=0, ANT2SRN=60, ANT2SN=0, ANT2N=R0B, ANT3CN=0, ANT3SRN=60, ANT3SN=0, ANT3N=R0C, ANT4CN=0, ANT4SRN=60, ANT4SN=0, ANT4N=R0D, ANT5CN=0, ANT5SRN=60, ANT5SN=0, ANT5N=R0E, ANT6CN=0, ANT6SRN=60, ANT6SN=0, ANT6N=R0F, ANT7CN=0, ANT7SRN=60, ANT7SN=0, ANT7N=R0G, ANT8CN=0, ANT8SRN=60, ANT8SN=0, ANT8N=R0H, CREATESECTOREQM=TRUE, SECTOREQMID=0;
+ADD LOCELL: LOCALCELLEID=0, LOCALCELLID=1700, SERVMODE=Normal, COVMODE=Macro, PATHGRPNUM=1, RELSECEQMID1=0, RELSECEQMFREQ1=FBand-1&ABand-1&EBand-0, BEAMWIDTH=65Degrees;
+ADD CARRIERRES: LOCALCELLEID=0, CARRIERRESID=0;
+
+CreateLAR.exe -e FRM-DFE_050302_5E9E4FB3.LAR
+CreateLAR.exe -e FRM-KAASU_050302_5FB72149.LAR
+CreateLAR.exe -e FRM-PROP_050302_8F7F727C.LAR
+CreateLAR.exe -e FRM-RYYPPY_050302_04FA8814.LAR
+CreateLAR.exe -e FRM-SW_050302_E02AB7DB.LAR
+CreateLAR.exe -e FRM-VILKKU_050302_CA2634D8.LAR
+
+Further, please upload above RFSW files to the RAM memory and update all files one by one.
+		flash -u MON1 FRM_RT_SW.bin
+		flash -u EXT1 Boot_ext.bin
+		flash -u UCP1 upload_program_v0001_28112013.txt
+		flash -u DF11 flash_contents_5C_v01_05_04122014.txt 	
+		flash -u TSA1 lte20m_1subframe_fdd_v0002_10122013.bin
+		flash -u TSB1 lte10m_1subframe_fdd_v0001_08042014.bin
+
+		flash -u OMP1 LTX_UPF.xml
+		flash -u FDR1 fdrules.xml
+		flash -u CFR1 CfrConfig.xml
+		flash -u FCC1 FccConfig.xml
+		flash -u FMO1 FRMonConfig.xml
+		flash -u RFC1 RfCtrlConfig.xml
+		
+		For FZHM HW variants older then X12:
+		flash -u KAS1 compressed_kaasu_k410t_00030023_17022015.bin
+		For FZHM HW variants X12 and newer:
+		flash -u KAS1 compressed_kaasu_k325t_00030023_17022015.bin
+		flash -u KAS1 compressed_kaasu_k325t_00030026_12032015.bin
+		For all FZHS HW variants:
+		flash -u KAS1 compressed_vilkku_k410t_00000005_24022015.bin
+
+
+
+flash -u MON1 FRM_RT_SW.bin
+		flash -u EXT1 Boot_ext.bin
+		flash -u UCP1 upload_program_v0001_28112013.txt
+		flash -u DF11 flash_contents_5C_v01_05_04122014.txt 	//(for FZHM/FZHS/FZHQ)
+		flash -u DF11 flash_contents_FZQC_v01_00_19032015.txt 	//(for FZQC)
+		flash -u TSA1 lte20m_1subframe_fdd_v0002_10122013.bin
+		flash -u TSB1 lte10m_1subframe_fdd_v0001_08042014.bin
+
+		flash -u OMP1 LTX_UPF.xml
+		flash -u FDR1 fdrules.xml
+		flash -u CFR1 CfrConfig.xml
+		flash -u FCC1 FccConfig.xml
+		flash -u FMO1 FRMonConfig.xml
+		flash -u RFC1 RfCtrlConfig.xml
+		flash -u RFI1 ARMFirmware.hex //(for FZQC only)
+Please also do not forget to modify FileDirectory file (DIR section on the flash).
+		FileDirectory.xml is available in the following RFSW package location: 
+		TDM35.03.R01/C_Element/SE_RFM/SS_FZHM/RnD/FileDirectory/FZHM_KAASU_k325t_FileDirectory
+		TDM35.03.R01/C_Element/SE_RFM/SS_FZHM/RnD/FileDirectory/FZHM_KAASU_k410t_FileDirectory
+		TDM35.03.R01/C_Element/SE_RFM/SS_FZHM/RnD/FileDirectory/FZHS_VILKKU_k325t_FileDirectory
+		TDM35.03.R01/C_Element/SE_RFM/SS_FZHM/RnD/FileDirectory/FZHS_VILKKU_k410t_FileDirectory
+		TDM35.03.R01/C_Element/SE_RFM/SS_FZHM/RnD/FileDirectory/FZQC_RYYPPY_k325t_FileDirectory
+		
+		
+		
+		
+		Please upload above FileDirectory file to the RFM RAM and execute below commands (for active batch): 
+		
+		In case of first batch:
+		flash -r DIR1 FileDirectory.xml                  
+		flash -w DIR1 FileDirectory.xml
+
+		In case of second batch:
+		flash -r DIR2 FileDirectory.xml                  
+		flash -w DIR2 FileDirectory.xml
+	
+	IMPORTANT:
+	Please update product code on RF module using following command:
+	eeprom -s productCode 086984A.X02 (in case of using FZHM X02)
+	eeprom -s productCode 086984A.X11 (in case of using FZHM X11)
+	eeprom -s productCode 086984A.X12 (in case of using FZHM X12)
+	eeprom -s productCode 087556A.X01 (in case of using FZHS X01)
+	eeprom -s productCode 473106A.X11 (in case of using FZHQ X11)
+	eeprom -s productCode 473222A.X01 (in case of using FZHT X01)
+  eeprom -g productCode
+  eeprom -s productCode 086984A.X21
+  build_info
+  
