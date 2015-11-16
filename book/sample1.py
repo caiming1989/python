@@ -5,7 +5,7 @@ def list_solution(this_list,level):
              list_solution(element,level+1)
         else:
             for num in range(level):
-                print("\t",)
+                print '\t',
             print element,
 
 
